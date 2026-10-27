@@ -3,247 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
     <title>⏰ Adverbs & Time – Trainer</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
-        }
-        body {
-            background: #f0f4f8;
-            min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-        }
-        .app {
-            max-width: 900px;
-            width: 100%;
-            background: #ffffff;
-            border-radius: 40px;
-            box-shadow: 0 20px 60px rgba(0, 20, 40, 0.12);
-            padding: 32px 28px;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif; }
+        body { background: #f0f4f8; min-height: 100vh; padding: 20px; display: flex; justify-content: center; }
+        .app { max-width: 900px; width: 100%; background: #ffffff; border-radius: 40px; box-shadow: 0 20px 60px rgba(0, 20, 40, 0.12); padding: 32px 28px; }
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 3px solid #003399;
-            padding-bottom: 16px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .header h1 {
-            font-size: 24px;
-            color: #003399;
-            font-weight: 700;
-        }
-        .header .badge {
-            font-size: 14px;
-            color: #5a6f8c;
-            background: #eef3f9;
-            padding: 4px 16px;
-            border-radius: 30px;
-        }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #003399; padding-bottom: 16px; margin-bottom: 24px; flex-wrap: wrap; gap: 10px; }
+        .header h1 { font-size: 24px; color: #003399; font-weight: 700; }
+        .header .badge { font-size: 14px; color: #5a6f8c; background: #eef3f9; padding: 4px 16px; border-radius: 30px; }
 
-        .tabs {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-        }
-        .tab-btn {
-            padding: 10px 22px;
-            border-radius: 40px;
-            border: none;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            transition: 0.2s;
-            background: #eef3f9;
-            color: #1f3a6b;
-        }
-        .tab-btn.active {
-            background: #003399;
-            color: #fff;
-            box-shadow: 0 4px 10px rgba(0, 51, 153, 0.25);
-        }
-        .tab-btn:hover:not(.active) {
-            background: #d9e3f0;
-        }
+        .tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+        .tab-btn { padding: 10px 22px; border-radius: 40px; border: none; font-weight: 600; font-size: 15px; cursor: pointer; transition: 0.2s; background: #eef3f9; color: #1f3a6b; }
+        .tab-btn.active { background: #003399; color: #fff; box-shadow: 0 4px 10px rgba(0, 51, 153, 0.25); }
+        .tab-btn:hover:not(.active) { background: #d9e3f0; }
 
         .panel { display: none; }
         .panel.active { display: block; }
 
-        .progress-bar-wrap {
-            width: 100%;
-            height: 8px;
-            background: #e6edf5;
-            border-radius: 10px;
-            margin-bottom: 8px;
-            overflow: hidden;
-        }
-        .progress-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #003399, #4a7db5);
-            border-radius: 10px;
-            width: 0%;
-            transition: width 0.4s ease;
-        }
-        .step-counter {
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            color: #5a6f8c;
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
+        .progress-bar-wrap { width: 100%; height: 8px; background: #e6edf5; border-radius: 10px; margin-bottom: 8px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background: linear-gradient(90deg, #003399, #4a7db5); border-radius: 10px; width: 0%; transition: width 0.4s ease; }
+        .step-counter { display: flex; justify-content: space-between; font-size: 14px; color: #5a6f8c; margin-bottom: 20px; font-weight: 500; }
 
-        .question-card {
-            background: #f9fcff;
-            border-radius: 24px;
-            padding: 28px 24px;
-            border: 1px solid #e7edf5;
-            min-height: 260px;
-            text-align: center;
-        }
-        .question-label {
-            font-size: 15px;
-            color: #5a6f8c;
-            margin-bottom: 12px;
-            font-weight: 500;
-        }
-        .scramble-display {
-            font-size: 28px;
-            font-weight: 700;
-            color: #003399;
-            margin: 16px 0;
-            letter-spacing: 4px;
-            line-height: 1.8;
-            word-break: break-word;
-        }
-        .russian-display {
-            font-size: 30px;
-            font-weight: 700;
-            color: #003399;
-            margin: 16px 0;
-            line-height: 1.4;
-        }
+        .question-card { background: #f9fcff; border-radius: 24px; padding: 28px 24px; border: 1px solid #e7edf5; min-height: 260px; text-align: center; }
+        .question-label { font-size: 15px; color: #5a6f8c; margin-bottom: 12px; font-weight: 500; }
+        .scramble-display { font-size: 28px; font-weight: 700; color: #003399; margin: 16px 0; letter-spacing: 4px; line-height: 1.8; word-break: break-word; }
+        .russian-display { font-size: 30px; font-weight: 700; color: #003399; margin: 16px 0; line-height: 1.4; }
+
         .speak-btn {
-            background: #003399;
-            color: #fff;
-            border: none;
-            padding: 16px 40px;
-            border-radius: 60px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-            margin: 8px 0;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
+            background: #003399; color: #fff; border: none;
+            padding: 18px 44px; border-radius: 60px; font-size: 19px; font-weight: 600;
+            cursor: pointer; transition: 0.2s; margin: 8px 0;
+            display: inline-flex; align-items: center; gap: 10px;
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
-        }
-        .speak-btn:hover {
-            background: #002277;
-            transform: scale(1.03);
-        }
-        .speak-btn:active {
-            transform: scale(0.97);
-            background: #001a55;
-        }
-        .speak-btn:disabled {
-            opacity: 0.6;
-            cursor: wait;
-        }
-        .audio-tools {
-            display: flex;
-            gap: 12px;
+            min-width: 220px;
             justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            margin: 10px 0;
         }
+        .speak-btn:hover { background: #002277; transform: scale(1.03); }
+        .speak-btn:active { transform: scale(0.97); background: #001a55; }
+        .speak-btn:disabled { opacity: 0.6; cursor: wait; }
+
+        .audio-tools { display: flex; gap: 12px; justify-content: center; align-items: center; flex-wrap: wrap; margin: 10px 0; }
         .wooordhunt-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 10px 18px;
-            border-radius: 60px;
-            border: 2px solid #003399;
-            background: transparent;
-            color: #003399;
-            font-size: 14px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: 0.2s;
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 12px 22px; border-radius: 60px;
+            border: 2px solid #003399; background: transparent; color: #003399;
+            font-size: 15px; font-weight: 600; text-decoration: none; transition: 0.2s;
+            -webkit-tap-highlight-color: transparent;
         }
-        .wooordhunt-link:hover {
-            background: #003399;
-            color: #fff;
-        }
+        .wooordhunt-link:hover { background: #003399; color: #fff; }
+
         .audio-hint {
-            font-size: 13px;
-            color: #5a6f8c;
-            margin-top: 4px;
-            min-height: 18px;
+            font-size: 14px; color: #5a6f8c; margin-top: 8px;
+            min-height: 22px; padding: 4px;
         }
-        .input-wrap {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
+        .audio-hint.error { color: #c72a2a; font-weight: 500; }
+        .audio-hint.ok { color: #1e7e34; font-weight: 500; }
+
+        .voice-picker {
+            display: flex; gap: 8px; justify-content: center; align-items: center;
+            margin: 10px 0 4px; font-size: 13px; color: #5a6f8c;
         }
+        .voice-picker label { font-weight: 500; }
+        .voice-picker select {
+            padding: 4px 10px; border-radius: 20px;
+            border: 1.5px solid #ccd9e8; background: #fff;
+            font-size: 13px; color: #1a2b4a; max-width: 260px; cursor: pointer;
+        }
+        .voice-picker select:focus { border-color: #003399; outline: none; }
+
+        .input-wrap { display: flex; justify-content: center; margin: 20px 0; }
         .answer-input {
-            padding: 14px 20px;
-            border-radius: 40px;
-            border: 2px solid #ccd9e8;
-            font-size: 20px;
-            text-align: center;
-            width: 100%;
-            max-width: 400px;
-            transition: 0.15s;
-            font-family: inherit;
-            color: #1a2b4a;
+            padding: 14px 20px; border-radius: 40px; border: 2px solid #ccd9e8;
+            font-size: 20px; text-align: center; width: 100%; max-width: 400px;
+            transition: 0.15s; font-family: inherit; color: #1a2b4a;
         }
-        .answer-input:focus {
-            border-color: #003399;
-            outline: none;
-            box-shadow: 0 0 0 4px rgba(0, 51, 153, 0.12);
-        }
-        .answer-input.correct {
-            border-color: #1e7e34;
-            background: #e6f5ea;
-        }
-        .answer-input.wrong {
-            border-color: #c72a2a;
-            background: #fde8e8;
-        }
-        .feedback {
-            min-height: 34px;
-            font-size: 18px;
-            font-weight: 500;
-            margin-top: 8px;
-        }
+        .answer-input:focus { border-color: #003399; outline: none; box-shadow: 0 0 0 4px rgba(0, 51, 153, 0.12); }
+        .answer-input.correct { border-color: #1e7e34; background: #e6f5ea; }
+        .answer-input.wrong { border-color: #c72a2a; background: #fde8e8; }
+        .feedback { min-height: 34px; font-size: 18px; font-weight: 500; margin-top: 8px; }
         .feedback.ok { color: #1e7e34; }
         .feedback.fail { color: #c72a2a; }
 
-        .btn {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            transition: 0.2s;
-            -webkit-tap-highlight-color: transparent;
-            touch-action: manipulation;
-        }
+        .btn { padding: 12px 30px; border: none; border-radius: 60px; font-weight: 600; font-size: 15px; cursor: pointer; transition: 0.2s; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
         .btn:hover { transform: scale(1.02); }
         .btn-primary { background: #003399; color: #fff; }
         .btn-primary:hover { background: #002277; }
@@ -251,93 +95,23 @@
         .btn-success:hover { background: #16632a; }
         .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-        .controls {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 16px;
-        }
+        .controls { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 16px; }
 
-        .result-box {
-            background: #f2f7ff;
-            border-radius: 24px;
-            padding: 28px;
-            margin-top: 8px;
-            border-left: 6px solid #003399;
-            text-align: center;
-        }
-        .result-box .score-big {
-            font-size: 46px;
-            font-weight: 700;
-            color: #003399;
-        }
-        .result-box .score-label {
-            font-size: 16px;
-            color: #4a5f7a;
-            margin-top: 4px;
-        }
-        .result-box .grade {
-            display: inline-block;
-            font-size: 22px;
-            font-weight: 700;
-            padding: 6px 24px;
-            border-radius: 40px;
-            background: #e6f5ea;
-            color: #1e7e34;
-            margin-top: 14px;
-        }
+        .result-box { background: #f2f7ff; border-radius: 24px; padding: 28px; margin-top: 8px; border-left: 6px solid #003399; text-align: center; }
+        .result-box .score-big { font-size: 46px; font-weight: 700; color: #003399; }
+        .result-box .score-label { font-size: 16px; color: #4a5f7a; margin-top: 4px; }
+        .result-box .grade { display: inline-block; font-size: 22px; font-weight: 700; padding: 6px 24px; border-radius: 40px; background: #e6f5ea; color: #1e7e34; margin-top: 14px; }
         .result-box .grade.bad { background: #fde8e8; color: #c72a2a; }
         .result-box .grade.mid { background: #fff3e0; color: #b36b00; }
-        .error-list {
-            list-style: none;
-            padding: 0;
-            margin: 20px 0 0;
-            text-align: left;
-        }
-        .error-list li {
-            background: #fff;
-            border-left: 4px solid #c72a2a;
-            padding: 10px 14px;
-            border-radius: 10px;
-            margin-bottom: 8px;
-            font-size: 15px;
-            color: #1a2b4a;
-        }
+        .error-list { list-style: none; padding: 0; margin: 20px 0 0; text-align: left; }
+        .error-list li { background: #fff; border-left: 4px solid #c72a2a; padding: 10px 14px; border-radius: 10px; margin-bottom: 8px; font-size: 15px; color: #1a2b4a; }
         .error-list li .correct { color: #1e7e34; font-weight: 600; }
 
-        .start-box {
-            text-align: center;
-            padding: 30px 16px;
-        }
-        .start-box .emoji-big {
-            font-size: 52px;
-            margin-bottom: 8px;
-        }
-        .start-box h2 {
-            color: #003399;
-            font-size: 22px;
-            margin-bottom: 8px;
-        }
-        .start-box p {
-            color: #4a5f7a;
-            font-size: 15px;
-            margin-bottom: 16px;
-            line-height: 1.6;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .start-box .count {
-            display: inline-block;
-            background: #eef3f9;
-            color: #1f3a6b;
-            padding: 4px 18px;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
+        .start-box { text-align: center; padding: 30px 16px; }
+        .start-box .emoji-big { font-size: 52px; margin-bottom: 8px; }
+        .start-box h2 { color: #003399; font-size: 22px; margin-bottom: 8px; }
+        .start-box p { color: #4a5f7a; font-size: 15px; margin-bottom: 16px; line-height: 1.6; max-width: 500px; margin-left: auto; margin-right: auto; }
+        .start-box .count { display: inline-block; background: #eef3f9; color: #1f3a6b; padding: 4px 18px; border-radius: 30px; font-size: 14px; font-weight: 600; margin-bottom: 20px; }
 
         .hidden { display: none !important; }
 
@@ -350,7 +124,8 @@
             .answer-input { font-size: 17px; }
             .btn { font-size: 14px; padding: 10px 22px; }
             .result-box .score-big { font-size: 36px; }
-            .speak-btn { font-size: 16px; padding: 14px 32px; }
+            .speak-btn { font-size: 17px; padding: 16px 36px; min-width: 200px; }
+            .voice-picker { flex-direction: column; gap: 4px; }
         }
     </style>
 </head>
@@ -368,7 +143,7 @@
         <button class="tab-btn" data-target="translate">🌐 Translate</button>
     </div>
 
-    <!-- ==================== DICTATION ==================== -->
+    <!-- DICTATION -->
     <div class="panel active" id="dictationPanel">
         <div class="progress-bar-wrap"><div class="progress-bar-fill" id="dictationProgress"></div></div>
         <div class="step-counter">
@@ -386,12 +161,20 @@
             <div id="dictationBody" class="hidden">
                 <div class="question-label">Напиши, что услышишь:</div>
                 <div class="audio-tools">
-                    <button class="speak-btn" id="dictationSpeakBtn">🔊 Прослушать</button>
-                    <a class="wooordhunt-link" id="dictationWooordhuntLink" target="_blank">
+                    <button class="speak-btn" id="dictationSpeakBtn" type="button">🔊 Прослушать</button>
+                    <a class="wooordhunt-link" id="dictationWooordhuntLink" target="_blank" rel="noopener">
                         📖 Wooordhunt
                     </a>
                 </div>
                 <div class="audio-hint" id="dictationAudioHint"></div>
+
+                <div class="voice-picker" id="voicePickerWrap">
+                    <label for="voiceSelect">🎙️ Голос:</label>
+                    <select id="voiceSelect">
+                        <option value="">Загрузка голосов...</option>
+                    </select>
+                </div>
+
                 <div class="input-wrap">
                     <input type="text" class="answer-input" id="dictationInput" placeholder="Type what you hear..." autocomplete="off" autocapitalize="off" spellcheck="false">
                 </div>
@@ -405,7 +188,7 @@
         </div>
     </div>
 
-    <!-- ==================== SCRAMBLE ==================== -->
+    <!-- SCRAMBLE -->
     <div class="panel" id="scramblePanel">
         <div class="progress-bar-wrap"><div class="progress-bar-fill" id="scrambleProgress"></div></div>
         <div class="step-counter">
@@ -436,7 +219,7 @@
         </div>
     </div>
 
-    <!-- ==================== TRANSLATE ==================== -->
+    <!-- TRANSLATE -->
     <div class="panel" id="translatePanel">
         <div class="progress-bar-wrap"><div class="progress-bar-fill" id="translateProgress"></div></div>
         <div class="step-counter">
@@ -539,11 +322,8 @@
     }
 
     // ================================================================
-    //  ОЗВУЧКА — адаптирована под мобильные
+    //  ОПРЕДЕЛЕНИЕ УСТРОЙСТВА
     // ================================================================
-    let currentAudio = null;
-
-    // Определяем, мобильное ли устройство
     function isMobileDevice() {
         const ua = navigator.userAgent || '';
         if (/iPhone|iPad|iPod|Android|Mobile|Opera Mini|IEMobile/i.test(ua)) return true;
@@ -551,102 +331,227 @@
         return false;
     }
 
-    // Предзагрузка голосов (важно для мобильных: голоса загружаются асинхронно)
+    // ================================================================
+    //  ОЗВУЧКА
+    // ================================================================
+    const VOICE_STORAGE_KEY = 'spotlight_voice_choice';
+    let currentAudio = null;
+    let allEnglishVoices = [];
     let voicesLoaded = false;
-    function preloadVoices() {
-        if (!('speechSynthesis' in window)) return;
-        window.speechSynthesis.getVoices();
-        window.speechSynthesis.onvoiceschanged = () => {
-            window.speechSynthesis.getVoices();
-            voicesLoaded = true;
-        };
-        if (window.speechSynthesis.getVoices().length > 0) {
-            voicesLoaded = true;
-        }
-    }
-    preloadVoices();
+    let audioUnlocked = false;
 
-    // Выбор лучшего английского голоса
-    function getBestVoice() {
+    // Показать сообщение под кнопкой
+    function showHint(msg, type) {
+        const hint = document.getElementById('dictationAudioHint');
+        if (!hint) return;
+        hint.textContent = msg || '';
+        hint.className = 'audio-hint' + (type ? ' ' + type : '');
+    }
+
+    // Загрузка голосов
+    function loadVoices() {
+        if (!('speechSynthesis' in window)) return false;
+        const voices = window.speechSynthesis.getVoices() || [];
+        if (voices.length === 0) return false;
+        allEnglishVoices = voices.filter(v => v.lang && v.lang.toLowerCase().indexOf('en') === 0);
+        if (allEnglishVoices.length > 0) {
+            voicesLoaded = true;
+            populateVoicePicker();
+            return true;
+        }
+        return false;
+    }
+
+    // Разблокировка аудио при первом касании
+    function unlockAudio() {
+        if (audioUnlocked) return;
+        audioUnlocked = true;
+        if (!('speechSynthesis' in window)) return;
+        try {
+            // Тихий "пустой" звук — разблокирует speechSynthesis на iOS/Android
+            const u = new SpeechSynthesisUtterance('a');
+            u.volume = 0.01;
+            u.rate = 10;
+            u.lang = 'en-US';
+            window.speechSynthesis.speak(u);
+        } catch(e) {}
+    }
+
+    document.addEventListener('touchstart', unlockAudio, { once: true, passive: true });
+    document.addEventListener('click', unlockAudio, { once: true });
+
+    // Заполнить список голосов
+    function populateVoicePicker() {
+        const select = document.getElementById('voiceSelect');
+        if (!select) return;
+        if (select.dataset.filled === '1') return;
+        select.dataset.filled = '1';
+        select.innerHTML = '';
+
+        const sorted = allEnglishVoices.slice().sort((a, b) => {
+            const score = (v) => {
+                let s = 0;
+                const n = v.name.toLowerCase();
+                if (n.indexOf('google uk english female') !== -1) s += 100;
+                else if (n.indexOf('google uk english') !== -1) s += 90;
+                else if (n.indexOf('google us english') !== -1) s += 80;
+                else if (n.indexOf('google') !== -1) s += 70;
+                else if (n.indexOf('samantha') !== -1) s += 60;
+                else if (n.indexOf('female') !== -1) s += 40;
+                else if (n.indexOf('male') !== -1) s -= 20;
+                return -s;
+            };
+            return score(a) - score(b);
+        });
+
+        const savedVoice = localStorage.getItem(VOICE_STORAGE_KEY) || '';
+        let hasSaved = false;
+
+        sorted.forEach((v) => {
+            const opt = document.createElement('option');
+            opt.value = v.name;
+            opt.textContent = v.name + ' (' + (v.lang || '') + ')';
+            if (v.name === savedVoice) { opt.selected = true; hasSaved = true; }
+            select.appendChild(opt);
+        });
+
+        if (!hasSaved && sorted.length > 0) {
+            select.selectedIndex = 0;
+            localStorage.setItem(VOICE_STORAGE_KEY, sorted[0].name);
+        }
+
+        select.onchange = function() {
+            localStorage.setItem(VOICE_STORAGE_KEY, this.value);
+        };
+    }
+
+    // Получить выбранный голос
+    function getSelectedVoice() {
         if (!('speechSynthesis' in window)) return null;
-        const voices = window.speechSynthesis.getVoices();
-        if (!voices || voices.length === 0) return null;
-        // Приоритет: Google UK English Female > Google US English > Samantha (Apple) > любой en-GB > любой en
+        const voices = window.speechSynthesis.getVoices() || [];
+        if (voices.length === 0) return null;
+        const saved = localStorage.getItem(VOICE_STORAGE_KEY);
+        if (saved) {
+            const v = voices.find(x => x.name === saved);
+            if (v) return v;
+        }
         return voices.find(v => v.name === 'Google UK English Female')
             || voices.find(v => v.name === 'Google US English')
             || voices.find(v => v.name && v.name.indexOf('Samantha') !== -1)
             || voices.find(v => v.lang && v.lang.toLowerCase() === 'en-gb')
-            || voices.find(v => v.lang && v.lang.toLowerCase() === 'en-us')
             || voices.find(v => v.lang && v.lang.toLowerCase().indexOf('en') === 0)
             || null;
     }
 
-    // Основная функция озвучки
-    function speakText(text) {
-        // Останавливаем предыдущее аудио
+    // Остановить всё аудио
+    function stopAllAudio() {
         if (currentAudio) {
             try { currentAudio.pause(); currentAudio.currentTime = 0; } catch(e) {}
             currentAudio = null;
         }
         if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
+            try { window.speechSynthesis.cancel(); } catch(e) {}
         }
+    }
 
-        const hint = document.getElementById('dictationAudioHint');
-        if (hint) hint.textContent = '';
+    // ГЛАВНАЯ функция озвучки
+    function speakText(text) {
+        if (!text) return;
+        stopAllAudio();
 
-        // НА МОБИЛЬНЫХ: используем speechSynthesis (гарантированно работает в тапе)
+        // ============ МОБИЛЬНЫЙ ============
+        // ВАЖНО: speechSynthesis должен вызываться СИНХРОННО внутри тапа,
+        // иначе iOS/Android блокируют звук.
         if (isMobileDevice()) {
-            if (!('speechSynthesis' in window)) {
-                if (hint) hint.textContent = '⚠️ Озвучка не поддерживается. Откройте слово в Wooordhunt.';
-                return;
-            }
-            const u = new SpeechSynthesisUtterance(text);
-            u.lang = 'en-US';
-            u.rate = 0.85;
-            u.pitch = 1;
-            const voice = getBestVoice();
-            if (voice) u.voice = voice;
-
-            u.onerror = function(e) {
-                if (hint) hint.textContent = '⚠️ Не удалось воспроизвести. Откройте слово в Wooordhunt.';
-            };
-
-            try {
-                window.speechSynthesis.speak(u);
-            } catch (e) {
-                if (hint) hint.textContent = '⚠️ Ошибка озвучки. Откройте слово в Wooordhunt.';
-            }
+            speakWithSynthesis(text);
             return;
         }
 
-        // НА КОМПЬЮТЕРЕ: используем Google TTS (живой голос) с fallback
+        // ============ КОМПЬЮТЕР ============
+        // Пробуем Google TTS, при неудаче — speechSynthesis
         const url = 'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=' + encodeURIComponent(text);
         const audio = new Audio();
         audio.preload = 'auto';
         audio.src = url;
         currentAudio = audio;
 
+        const btn = document.getElementById('dictationSpeakBtn');
+        if (btn) { btn.disabled = true; btn.textContent = '🔊 Загрузка...'; }
+
         const playPromise = audio.play();
+
         if (playPromise !== undefined) {
-            playPromise.catch(function() {
-                // Fallback на speechSynthesis
-                if (!('speechSynthesis' in window)) {
-                    if (hint) hint.textContent = '⚠️ Озвучка недоступна. Откройте слово в Wooordhunt.';
-                    return;
-                }
-                const u = new SpeechSynthesisUtterance(text);
-                u.lang = 'en-US';
-                u.rate = 0.85;
-                const voice = getBestVoice();
-                if (voice) u.voice = voice;
-                try { window.speechSynthesis.speak(u); } catch(e) {}
+            playPromise.then(function() {
+                if (btn) { btn.disabled = false; btn.textContent = '🔊 Прослушать'; }
+            }).catch(function() {
+                if (btn) { btn.disabled = false; btn.textContent = '🔊 Прослушать'; }
+                speakWithSynthesis(text);
             });
         }
     }
 
+    // Озвучка через speechSynthesis (синхронная!)
+    function speakWithSynthesis(text) {
+        if (!('speechSynthesis' in window)) {
+            showHint('⚠️ Озвучка не поддерживается браузером. Нажмите 📖 Wooordhunt.', 'error');
+            return;
+        }
+
+        // Если голоса ещё не загружены — попробуем загрузить
+        const voices = window.speechSynthesis.getVoices() || [];
+        if (voices.length === 0) {
+            // iOS: голоса иногда подгружаются после первого "speak"
+            loadVoices();
+            // Показываем подсказку и продолжаем — speak сработает с дефолтным голосом
+            showHint('⏳ Загружаем голоса... Если не слышно, нажмите ещё раз.', '');
+        }
+
+        try { window.speechSynthesis.cancel(); } catch(e) {}
+        try { window.speechSynthesis.resume(); } catch(e) {}
+
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'en-US';
+        u.rate = 0.8;
+        u.pitch = 1;
+        u.volume = 1;
+
+        const voice = getSelectedVoice();
+        if (voice) u.voice = voice;
+
+        u.onstart = function() {
+            showHint('🔊 Говорю...', 'ok');
+        };
+        u.onend = function() {
+            showHint('', '');
+        };
+        u.onerror = function(e) {
+            const err = e.error || 'unknown';
+            if (err === 'interrupted' || err === 'canceled') return;
+            showHint('⚠️ Ошибка озвучки (' + err + '). Нажмите 📖 Wooordhunt.', 'error');
+        };
+
+        try {
+            window.speechSynthesis.speak(u);
+            // Прогрев: после первого speak голоса должны подгрузиться
+            setTimeout(loadVoices, 300);
+        } catch(e) {
+            showHint('⚠️ Ошибка озвучки. Нажмите 📖 Wooordhunt.', 'error');
+        }
+    }
+
+    // Загрузка голосов при старте
+    function initVoices() {
+        if (!('speechSynthesis' in window)) return;
+        window.speechSynthesis.getVoices();
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+        loadVoices();
+        setTimeout(loadVoices, 200);
+        setTimeout(loadVoices, 800);
+        setTimeout(loadVoices, 1500);
+    }
+
     // ================================================================
-    //  ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК
+    //  ВКЛАДКИ
     // ================================================================
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -703,20 +608,17 @@
         document.getElementById(task + 'Next').classList.add('hidden');
 
         if (task === 'dictation') {
-            // Кнопка воспроизведения
             const speakBtn = document.getElementById('dictationSpeakBtn');
-            speakBtn.onclick = function() { speakText(q.en); };
             speakBtn.disabled = false;
+            speakBtn.textContent = '🔊 Прослушать';
 
-            // Ссылка на Wooordhunt
+            // ВАЖНО: обработчик должен СИНХРОННО вызывать speakWithSynthesis
+            speakBtn.onclick = function() { speakText(q.en); };
+
             const wooordhuntLink = document.getElementById('dictationWooordhuntLink');
             wooordhuntLink.href = 'https://wooordhunt.ru/word/' + encodeURIComponent(q.en);
 
-            // Подсказка
-            const hint = document.getElementById('dictationAudioHint');
-            if (hint) hint.textContent = '👆 Нажми 🔊, чтобы услышать слово';
-
-            // НЕ автовоспроизводим — на мобильных это запрещено браузером
+            showHint('👆 Нажми 🔊, чтобы услышать слово', '');
         } else if (task === 'scramble') {
             document.getElementById('scrambleDisplay').textContent = scrambleLetters(q.en);
         } else if (task === 'translate') {
@@ -843,6 +745,9 @@
     ['dictation', 'scramble', 'translate'].forEach(function(task) {
         document.getElementById(task + 'Count').textContent = WORDS.length + ' слов';
     });
+
+    // 🚀 Инициализация голосов
+    initVoices();
 </script>
 </body>
 </html>
